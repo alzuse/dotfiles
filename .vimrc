@@ -11,19 +11,23 @@ Plugin 'VundleVim/Vundle.vim'
 "" from github.com/xxx/yyy.git
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
 "Plugin 'nerdcommenter'
 "Plugin 'fencview'
 
-"" from github.com/vim-scripts/yyy.git
 Plugin 'ShowTrailingWhitespace'
 Plugin 'Align'
-"Plugin 'bufexplorer.zip'
 "Plugin 'grep.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'valloric/youcompleteme'
+Plugin 'ConradIrwin/vim-bracketed-paste'
 
 "" repos init by adamzhang
 Plugin 'vimcdoc'
 Plugin 'yaml.vim'
 "Plugin 'file:///home/mcrd/engineer/cadman/repos/vim/vim-jinja'
+"
 
 "
 " Brief help
@@ -38,6 +42,8 @@ Plugin 'yaml.vim'
 
 call vundle#end()
 
+let g:airline_powerline_fonts = 1
+
 " Enable filetype plugins
 filetype plugin on
 " Enable filetype indent
@@ -50,11 +56,14 @@ if &t_Co > 1 || has("gui_running")
 endif
 "" more subtle popup colors
 if has('gui_running')
-    " set guifont=DejaVu\ Sans\ Mono\ 12
-    set guifont=Monaco\ 10
+    set guifont=DejaVu\ Sans\ Mono\ 10
+    " set guifont=Monaco\ 10
     set cursorline
     highlight CursorLine guibg=#99ffee
     highlight Pmenu guibg=#cccccc gui=bold
+
+    " let g:airline#extensions#tabline#enabled = 1
+
 else
     if has("win32unix")
         colo desert
@@ -74,12 +83,18 @@ set showcmd
 set visualbell
 set noincsearch
 set hlsearch
+set incsearch
 set number
 set ruler
+set cursorline 
 
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set smarttab
+set smartindent
+set autoindent
+set cindent
 
 "autocmd filetype html     set shiftwidth=2
 "autocmd filetype html     set tabstop=2
@@ -87,6 +102,8 @@ set expandtab
 "autocmd filetype yaml     set tabstop=2
 "autocmd filetype xml     set shiftwidth=2
 "autocmd filetype xml     set tabstop=2
+"
+autocmd InsertEnter * se cul
 
 autocmd BufNewFile,BufRead spec.conf set filetype=yaml
 autocmd BufNewFile,BufRead *.ds      set filetype=rst
