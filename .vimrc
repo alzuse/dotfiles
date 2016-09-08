@@ -120,7 +120,6 @@
         " Pick either python-mode or pyflakes & pydoc
         Plugin 'klen/python-mode'
     " }
-
 " }
 "
 
