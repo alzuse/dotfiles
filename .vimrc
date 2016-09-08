@@ -295,9 +295,9 @@
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
     let g:my_keep_trailing_whitespace = 1
-    autocmd FileType c,cpp,python,puppet,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:my_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
+    autocmd FileType c,cpp,python,puppet,xml,yaml,perl,sql autocmd BufWritePre <buffer> if !exists('g:my_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
-    autocmd FileType puppet,xml,yml,html setlocal expandtab shiftwidth=2 softtabstop=2
+    autocmd FileType puppet,xml,yaml,html setlocal expandtab shiftwidth=2 softtabstop=2
     " preceding line best in a plugin but here for now.
 
     "Special file type
