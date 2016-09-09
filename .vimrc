@@ -30,7 +30,6 @@
     " }
 
     " Arrow Key Fix {
-        " https://github.com/my/my-vim/issues/780
         if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
             inoremap <silent> <C-[>OC <RIGHT>
         endif
@@ -609,8 +608,14 @@
                 " Use the default set of separators with a few customizations
                 "" let g:airline_left_sep='›'  " Slightly fancier than '>'
                 "" let g:airline_right_sep='‹' " Slightly fancier than '<'
-                let g:airline_left_sep=''  " Slightly fancier than '>'
-                let g:airline_right_sep='' " Slightly fancier than '<'
+                if has('gui_running')
+                    let g:airline_left_sep=''  " Slightly fancier than '>'
+                    let g:airline_right_sep='' " Slightly fancier than '<'
+                else
+                    let g:airline_left_sep='>'
+                    let g:airline_right_sep='<'
+                endif
+
             endif
         endif
     " }
@@ -625,14 +630,12 @@
     if has('gui_running')
         "" set guioptions-=T           " Remove the toolbar
         set lines=40                " 40 lines of text instead of 24
-        if !exists("g:my_no_big_font")
-            if LINUX() && has("gui_running")
-                set guifont=Dejavu\ Sans\ Mono\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
-            elseif OSX() && has("gui_running")
-                set guifont=Andale\ Mono\ Regular:h12,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
-            elseif WINDOWS() && has("gui_running")
-                set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-            endif
+        if LINUX() && has("gui_running")
+            set guifont=Dejavu\ Sans\ Mono\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
+        elseif OSX() && has("gui_running")
+            set guifont=Andale\ Mono\ Regular:h12,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
+        elseif WINDOWS() && has("gui_running")
+            set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
         endif
     else
         if &term == 'xterm' || &term == 'screen'
