@@ -45,7 +45,7 @@
     " Setup Bundle Support {
         " The next three lines ensure that the ~/.vim/bundle/ system works
         filetype off
-        set rtp+=~/.vim/bundle/vundle
+        set rtp+=~/.vim/bundle/Vundle.vim
         call vundle#rc()
     " }
 
@@ -62,7 +62,7 @@
 
 " Plugins {
     " Deps {
-        Plugin 'gmarik/vundle'
+        Plugin 'VundleVim/Vundle.vim'
         Plugin 'mileszs/ack.vim'
         if executable('ag')
             let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
@@ -113,7 +113,7 @@
     " }
 
     " AutoComplete {
-        Plugin 'Valloric/YouCompleteMe'
+        "" Plugin 'Valloric/YouCompleteMe'
     " }
 
     " Python {
