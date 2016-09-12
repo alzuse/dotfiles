@@ -165,7 +165,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
 
-   dotspacemacs-default-font '("Consolas"
+   dotspacemacs-default-font '("Dejavu Sans Mono"
                               :size 14
                               :weight normal
                               :width normal
@@ -373,7 +373,7 @@ you should place your code here."
 
 
   ;; Font --------------------------------------------------------------------
-  (add-to-list 'default-frame-alist '(font . "Consolas-14"))
+  (add-to-list 'default-frame-alist '(font . "Dejavu Sans Mono-14"))
 
 
   ;; trailing-whitespace
