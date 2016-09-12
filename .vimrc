@@ -62,7 +62,7 @@
 
 " Plugins {
     " Deps {
-        Plugin 'gmarik/vundle'
+        Plugin 'VundleVim/Vundle.vim'
         Plugin 'mileszs/ack.vim'
         if executable('ag')
             let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
