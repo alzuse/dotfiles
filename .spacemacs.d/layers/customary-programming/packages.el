@@ -68,7 +68,8 @@
   :post-config
   (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   ;; if you use pyton3, then you could comment the following line
-  (setq python-shell-interpreter "python3"))
+  (setq python-shell-interpreter "python3")
+  (setq python-indent-offset 4))
 
 
 (spacemacs|use-package-add-hook yasnippet
