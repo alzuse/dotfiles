@@ -45,7 +45,7 @@
     " Setup Bundle Support {
         " The next three lines ensure that the ~/.vim/bundle/ system works
         filetype off
-        set rtp+=~/.vim/bundle/vundle
+        set rtp+=~/.vim/bundle/Vundle.vim
         call vundle#rc()
     " }
 
@@ -77,7 +77,7 @@
         Plugin 'asins/vimcdoc'
         Plugin 'ctrlpvim/ctrlp.vim'
         Plugin 'tacahiroy/ctrlp-funky'
-        Plugin 'terryma/vim-multiple-cursors'
+        "" Plugin 'terryma/vim-multiple-cursors'
         Plugin 'vim-scripts/sessionman.vim'
         Plugin 'matchit.zip'
         if (has("python") || has("python3")) && exists('g:my_use_powerline') && !exists('g:my_use_old_powerline')
@@ -102,7 +102,7 @@
 
     " General Programming {
         " Pick one of the checksyntax, jslint, or syntastic
-        Plugin 'scrooloose/syntastic'
+        "" Plugin 'scrooloose/syntastic'
         Plugin 'tpope/vim-fugitive'
         Plugin 'scrooloose/nerdcommenter'
         Plugin 'luochen1990/rainbow'
@@ -113,12 +113,13 @@
     " }
 
     " AutoComplete {
-        Plugin 'Valloric/YouCompleteMe'
+        "" Plugin 'Valloric/YouCompleteMe'
     " }
 
     " Python {
         " Pick either python-mode or pyflakes & pydoc
         Plugin 'klen/python-mode'
+        Plugin 'davidhalter/jedi-vim'
     " }
 " }
 "
@@ -263,7 +264,7 @@
     set linespace=0                 " No extra spaces between rows
     set number                      " Line numbers on
     set showmatch                   " Show matching brackets/parenthesis
-    set incsearch                   " Find as you type search
+    "" set incsearch                   " Find as you type search
     set hlsearch                    " Highlight search terms
     set winminheight=0              " Windows can be 0 line high
     "" set ignorecase                  " Case insensitive search
