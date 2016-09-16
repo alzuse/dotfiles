@@ -166,7 +166,7 @@ values."
    ;; size to make separators look not too crappy.
 
    dotspacemacs-default-font '("Bitstream Vera Sans Mono"
-                              :size 14
+                              :size 16
                               :weight normal
                               :width normal
                               :powerline-scale 1.0)
@@ -373,7 +373,7 @@ you should place your code here."
 
 
   ;; Font --------------------------------------------------------------------
-  (add-to-list 'default-frame-alist '(font . "Bitstream Vera Sans Mono-14"))
+  (add-to-list 'default-frame-alist '(font . "Bitstream Vera Sans Mono-12"))
 
 
   ;; trailing-whitespace
