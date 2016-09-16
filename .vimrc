@@ -86,7 +86,7 @@
             Plugin 'Lokaltog/vim-powerline'
         else
             Plugin 'vim-airline/vim-airline'
-            Plugin 'vim-airline/vim-airline-themes'
+            "" Plugin 'vim-airline/vim-airline-themes'
         endif
         Plugin 'powerline/fonts'
         Plugin 'bling/vim-bufferline'
@@ -94,7 +94,7 @@
         Plugin 'jistr/vim-nerdtree-tabs'
         Plugin 'flazz/vim-colorschemes'
         Plugin 'mbbill/undotree'
-        Plugin 'nathanaelkane/vim-indent-guides'
+        "" Plugin 'nathanaelkane/vim-indent-guides'
         Plugin 'mhinz/vim-signify'
         "" Plugin 'osyo-manga/vim-over'
         "" Plugin 'gcmt/wildfire.vim'
@@ -157,7 +157,7 @@
     " endif
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
-    set mouse=a                 " Automatically enable mouse usage
+    " set mouse=a                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
 
@@ -221,7 +221,7 @@
 
 " Vim UI {
 
-    if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+    if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim")) && 0
         let g:solarized_termcolors=256
         let g:solarized_termtrans=1
         let g:solarized_contrast="normal"
@@ -600,7 +600,7 @@
 
         " See `:echo g:airline_theme_map` for some more choices
         " Default in terminal vim is 'dark'
-        if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
+        if isdirectory(expand("~/.vim/bundle/vim-airline-themes/")) && 0 ""skip these themes
             if !exists('g:airline_theme')
                 let g:airline_theme = 'solarized'
             endif
