@@ -106,7 +106,7 @@
         "" Plugin 'scrooloose/syntastic'
         Plugin 'tpope/vim-fugitive'
         Plugin 'scrooloose/nerdcommenter'
-        Plugin 'luochen1990/rainbow'
+        "" Plugin 'luochen1990/rainbow'
         Plugin 'godlygeek/tabular'
         if executable('ctags')
             Plugin 'majutsushi/tagbar'
@@ -234,7 +234,7 @@
     "" set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
-    set cursorline                  " Highlight current line
+    "" set cursorline                  " Highlight current line
 
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
@@ -295,7 +295,7 @@
     set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
-    let g:my_keep_trailing_whitespace = 1
+    let g:my_keep_trailing_whitespace = 0
     autocmd FileType c,cpp,python,puppet,xml,yaml,perl,sql autocmd BufWritePre <buffer> if !exists('g:my_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd FileType puppet,xml,yaml,html setlocal expandtab shiftwidth=2 softtabstop=2
