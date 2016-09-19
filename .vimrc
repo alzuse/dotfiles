@@ -80,12 +80,13 @@
         "" Plugin 'terryma/vim-multiple-cursors'
         Plugin 'vim-scripts/sessionman.vim'
         Plugin 'matchit.zip'
+        let g:my_use_powerline = 1
         if (has("python") || has("python3")) && exists('g:my_use_powerline') && !exists('g:my_use_old_powerline')
             Plugin 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
         elseif exists('g:my_use_powerline') && exists('g:my_use_old_powerline')
             Plugin 'Lokaltog/vim-powerline'
         else
-            Plugin 'vim-airline/vim-airline'
+            "" Plugin 'vim-airline/vim-airline'
             "" Plugin 'vim-airline/vim-airline-themes'
         endif
         Plugin 'powerline/fonts'
