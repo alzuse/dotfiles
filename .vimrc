@@ -73,7 +73,7 @@
 
     " General {
         Plugin 'scrooloose/nerdtree'
-        Plugin 'altercation/vim-colors-solarized'
+        "" Plugin 'altercation/vim-colors-solarized'
         Plugin 'asins/vimcdoc'
         Plugin 'ctrlpvim/ctrlp.vim'
         Plugin 'tacahiroy/ctrlp-funky'
