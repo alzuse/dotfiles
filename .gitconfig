@@ -34,6 +34,6 @@
     changed = green
     untracked = cyan
 [url "git://anongit.kde.org/"]
-	insteadOf = kde:
+    insteadOf = kde:
 [url "git@git.kde.org:"]
-	pushInsteadOf = kde:
+    pushInsteadOf = kde:

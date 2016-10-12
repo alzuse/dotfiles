@@ -1,6 +1,6 @@
-alias rm 'rm -i'
-alias cp 'cp -i'
-alias mv 'mv -i'
+#alias rm 'rm -i'
+#alias cp 'cp -i'
+#alias mv 'mv -i'
 
 alias df 'df -h'
 alias du 'du -h'
@@ -21,11 +21,12 @@ alias dir 'ls --color=auto --format=vertical'
 alias vdir 'ls --color=auto --format=long'
 alias ll 'ls -l'                              # long list
 alias la 'ls -A'                              # all but . and ..
+alias lla 'ls -l -A'
 alias l 'ls -CF'                              #
 
 alias .. 'cd ..'
-alias h=history
-alias viim=vim
+alias h history
+alias viim vim
 alias ee 'emacsclient -c -a gvim \!* &'
 alias what 'ps aux |grep $USER |less'
 
