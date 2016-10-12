@@ -19,6 +19,9 @@ Plugin 'ShowTrailingWhitespace'
 Plugin 'Align'
 "Plugin 'bufexplorer.zip'
 "Plugin 'grep.vim'
+"
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 "" repos init by adamzhang
 Plugin 'vimcdoc'
@@ -38,6 +41,14 @@ Plugin 'yaml.vim'
 
 call vundle#end()
 
+let g:airline_powerline_fonts = 1
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
+" let g:airline_powerline_fonts = 1
+
 " Enable filetype plugins
 filetype plugin on
 " Enable filetype indent
@@ -50,8 +61,8 @@ if &t_Co > 1 || has("gui_running")
 endif
 "" more subtle popup colors
 if has('gui_running')
-    " set guifont=DejaVu\ Sans\ Mono\ 12
-    set guifont=Monaco\ 10
+    set guifont=DejaVu\ Sans\ Mono\ 10
+    " set guifont=Monaco\ 10
     set cursorline
     highlight CursorLine guibg=#99ffee
     highlight Pmenu guibg=#cccccc gui=bold
@@ -59,7 +70,7 @@ else
     if has("win32unix")
         colo desert
     else
-        colo default
+        " colo default
     endif
 endif
 
@@ -125,7 +136,7 @@ function! HasPaste()
     return ' '
 endfunction
 set laststatus=2
-set statusline=%y\ %-4.{HasPaste()}\ %r\ %{getcwd()}%h/%f\ %m\ \ %p%%\ L%c:C%l
+" set statusline=%y\ %-4.{HasPaste()}\ %r\ %{getcwd()}%h/%f\ %m\ \ %p%%\ L%c:C%l
 
 function RemoveTrailingWhitespace()
     if &ft != "diff"
