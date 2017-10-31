@@ -74,7 +74,7 @@
     " General {
         Plugin 'scrooloose/nerdtree'
         "" Plugin 'altercation/vim-colors-solarized'
-        Plugin 'asins/vimcdoc'
+        Plugin 'yianwillis/vimcdoc'
         Plugin 'ctrlpvim/ctrlp.vim'
         Plugin 'tacahiroy/ctrlp-funky'
         "" Plugin 'terryma/vim-multiple-cursors'
