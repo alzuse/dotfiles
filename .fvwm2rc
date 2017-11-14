@@ -358,7 +358,7 @@ AddToMenu   MenuFvwmRoot "Fvwm" Title
 + "&XTerm%icons/terminal.png%"    Exec exec $[infostore.terminal]
 + "Run..." Module FvwmForm FvwmFormRun
 + "" Nop
-+ "Fvwm&Console%icons/terminal.png%" Module FvwmConsole -terminal $[infostore.terminal]
+#+ "Fvwm&Console%icons/terminal.png%" Module FvwmConsole -terminal $[infostore.terminal]
 + "M&an Pages%icons/help.png%"       Popup MenuFvwmManPages
 + "&Utilities"                       Popup "Utilities"
 #+ "Copy Config%icons/conf.png%"      FvwmScript FvwmScript-ConfirmCopyConfig
