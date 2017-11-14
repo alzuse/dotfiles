@@ -8,7 +8,9 @@ Xft.hintstyle: hintfull
 ! X T E R M - Setting
 !
 !XTerm*utf8:               0
-XTerm*font:               -*-fixed-medium-r-normal-*-18-*-*-*-*-*-*-*
+!XTerm*font:               -*-fixed-medium-r-normal-*-18-*-*-*-*-*-*-*
+XTerm*font:               9x15
+XTerm*charClass:          33:48,35:48,37:48,42:48,45-47:48,64:48,95:48,126:48
 XTerm*colorMode:          on
 XTerm*colorULMode:        on
 XTerm*colorBD:            lightyellow
@@ -17,9 +19,10 @@ XTerm*dynamicColors:      off
 XTerm*highlightSelection: true
 XTerm*background:         black
 XTerm*foreground:         white
-XTerm*cursorColor:        yellow
+XTerm*cursorColor:        red
 XTerm*scrollBar:          true
-XTerm*saveLines:          1024
+XTerm*scrollBar.width:    6
+XTerm*saveLines:          8192
 
 !!colors
 !!black
