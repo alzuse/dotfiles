@@ -159,8 +159,8 @@ DestroyFunc ShowDesktop
 AddToFunc ShowDesktop
 + I All (CurrentPage, Iconic, State 1) RestoreDesktop
 + I TestRc (Match) Break
-+ I All (CurrentPage, !Iconic, !State 1) ThisWindow State 1 True
-+ I All (CurrentPage, !Iconic, State 1) Iconify
++ I All (CurrentPage, !Iconic, !RightPanel, !State 1) ThisWindow State 1 True
++ I All (CurrentPage, !Iconic, !RightPanel, State 1) Iconify
 
 DestroyFunc RestoreDesktop
 AddToFunc RestoreDesktop
@@ -202,6 +202,12 @@ AddToFunc  PrevWindow
 +   I Prev (!Iconic CurrentPage AcceptsFocus !"FvwmForm*|FvwmButtons*") Focus
 +   I Current Raise
 
+#DestroyFunc Resize-or-Raise 
+#AddToFunc Resize-or-Raise 
+#+   M Resize
+#+   M Raise
+#+   C Raise
+#+   D RaiseLower
 
 #############
 # 2: Styles #
@@ -236,14 +242,17 @@ DesktopSize 2x2
 #
 # Set EdgeScroll 0 0 and/or EdgeResistance -1 to disable.
 EdgeScroll 0 0
-EdgeResistance 150
-EdgeThickness 1
-Style * EdgeMoveDelay 150, EdgeMoveResistance 150
+EdgeResistance -1
+#EdgeThickness 1
+HideGeometryWindow Never
+Style * EdgeMoveDelay 100
+Style * EdgeResizeDelay 100
+#Style * EdgeMoveResistance 100
 
 # EwmhBaseStruts [left] [right] [top] [bottom]
 # Reserves space along the edge(s) of the Screen that will not
 # be covered when maximizing or placing windows.
-EwmhBaseStruts 0 120 0 0
+EwmhBaseStruts 4 0 0 0
 
 # This sets the ClickTime and MoveThreshold used to determine
 # Double Clicks, Hold and Move for the mouse.
@@ -262,8 +271,9 @@ Style * MinOverlapPlacement, GrabFocusOff, !UsePPosition
 
 # Sets all windows to OpaqueMove (vs a wired frame) and  windows will
 # snap to each other and the edge of the screen.
-OpaqueMoveSize unlimited
-Style * ResizeOpaque, SnapAttraction 15 SameType ScreenAll
+#OpaqueMoveSize unlimited
+#Style * ResizeOpaque, SnapAttraction 15 SameType ScreenAll
+Style * SnapAttraction 12 All
 
 # Transient Windows (such as open file windows)
 Style * DecorateTransient, StackTransientParent
@@ -278,7 +288,7 @@ IgnoreModifiers L25
 
 # Decor Styles
 Style * BorderWidth 3, HandleWidth 3
-Style * MWMFunctions, MWMButtons, MWMBorder, FirmBorder
+Style * MWMFunctions, MWMButtons, MWMBorder, MWMDecor
 Style * Colorset 1, HilightColorset 2
 Style * BorderColorset 3, HilightBorderColorset 4
 
@@ -337,6 +347,7 @@ Colorset 13 fg #ffffff, bg #cab3ca, hi, sh, Plain, NoShape
 Colorset 14 fg #ffffff, bg SteelBlue, hi #aaaaaa, sh #999999, Plain, NoShape
 
 Colorset 15 fg #ffffff, bg #908090, hi, sh, Plain, NoShape
+ColorSet 16 fg black,   bg Yellow, hi, sh, Plain, NoShape
 
 #######
 # 4: Menus
@@ -567,7 +578,8 @@ Mouse 1 4 A Iconify
 #                Right Click - Window List Menu
 #   Right click TitleBar/Borders for WindowOps Menu
 Mouse 1  T    A RaiseMoveX Move Maximize
-Mouse 1  FS   A RaiseMove Resize
+Mouse 1  F    A RaiseMove Resize
+Mouse 1  S    A Resize
 Mouse 4  T    A WindowShade True
 Mouse 5  T    A WindowShade False
 Mouse 1  R    A Menu MenuFvwmRoot
@@ -655,40 +667,43 @@ DestroyModuleConfig RightPanel:*
 *RightPanel: Font "xft:Sans:Bold:size=10:antialias=True"
 #*RightPanel: (120x45, Icon "fvwm-logo-small.png", Frame 0)
 *RightPanel: (120x5, Frame 0)
-
+# +5
 *RightPanel: (2x20, Frame 0)
 *RightPanel: (29x20, Id desk0, Title "0", Action (Mouse 1) GotoDesk 0 0, Colorset 11, ActiveColorset 12, Frame 0)
 *RightPanel: (29x20, Id desk1, Title "1", Action (Mouse 1) GotoDesk 0 1, ActiveColorset 12, Frame 0)
 *RightPanel: (29x20, Id desk2, Title "2", Action (Mouse 1) GotoDesk 0 2, ActiveColorset 12, Frame 0)
 *RightPanel: (29x20, Id desk3, Title "3", Action (Mouse 1) GotoDesk 0 3, ActiveColorset 12, Frame 0)
 *RightPanel: (2x20, Frame 0)
-
+# +20
 *RightPanel: (2x20, Frame 0)
 *RightPanel: (29x20, Id desk4, Title "4", Action (Mouse 1) GotoDesk 0 4, ActiveColorset 12, Frame 0)
 *RightPanel: (29x20, Id desk5, Title "5", Action (Mouse 1) GotoDesk 0 5, ActiveColorset 12, Frame 0)
 *RightPanel: (29x20, Id desk6, Title "6", Action (Mouse 1) GotoDesk 0 6, ActiveColorset 12, Frame 0)
 *RightPanel: (29x20, Id desk7, Title "7", Action (Mouse 1) GotoDesk 0 7, ActiveColorset 12, Frame 0)
 *RightPanel: (2x20, Frame 0)
-
+# +20
 *RightPanel: (2x80, Frame 0)
 *RightPanel: (116x80, Swallow FvwmPager 'Module FvwmPager *', Frame 0)
 *RightPanel: (2x80, Frame 0)
-
+# +80
 *RightPanel: (120x5, Frame 0)
+# +5
 Test (x stalonetray) *RightPanel: (120x20, Swallow(NoClose,UseOld) \
     stalonetray 'Exec exec stalonetray --config \
     "$[FVWM_DATADIR]/default-config/.stalonetrayrc"', Frame 0)
-Test (x stalonetray) PipeRead 'echo "*RightPanel: (120x$(($[vp.height]-225)), \
+Test (x stalonetray) PipeRead 'echo "*RightPanel: (120x$(($[vp.height]-200)), \
     Top, Swallow FvwmIconMan \'Module FvwmIconMan\', Frame 1)"'
-Test (!x stalonetray) PipeRead 'echo "*RightPanel: (120x$(($[vp.height]-205)),\
+Test (!x stalonetray) PipeRead 'echo "*RightPanel: (120x$(($[vp.height]-180)),\
     Top, Swallow FvwmIconMan \'Module FvwmIconMan\', Frame 1)"'
-*RightPanel: (120x45, Swallow DateTime 'Module FvwmScript FvwmScript-DateTime',\
+*RightPanel: (80x45, Swallow DateTime 'Module FvwmScript FvwmScript-DateTime',\
     Frame 0, \
     Action(Mouse 3) `WindowList`, \
     Action(Mouse 1) `Menu MenuFvwmRoot rectangle 0x198-0-0 +0 +0`, \
     Action(Mouse 2) `Menu MenuWindowOps rectangle 1x198-0-0 +0 +0` )
-#*RightPanel: (40x45, Icon icons/terminal.png, Action (Mouse 1) Function ShowDesktop)
+*RightPanel: (40x45, Frame 8, Action (Mouse 1) Function ShowDesktop)
+# +45
 *RightPanel: (120x5, Frame 0)
+# +5
 
 # FvwmPager
 #
@@ -697,13 +712,13 @@ Test (!x stalonetray) PipeRead 'echo "*RightPanel: (120x$(($[vp.height]-205)),\
 DestroyModuleConfig FvwmPager:*
 *FvwmPager: Colorset * 15
 *FvwmPager: HilightColorset * 13
-*FvwmPager: BalloonColorset * 10
+*FvwmPager: BalloonColorset * 16
 *FvwmPager: WindowColorsets 10 11
 *FvwmPager: Font None
 *FvwmPager: Balloons All
 *FvwmPager: BalloonFont "xft:Sans:Bold:size=8:antialias=True"
 *FvwmPager: BallonYOffset +2
-*FvwmPager: Window3dBorders
+#*FvwmPager: Window3dBorders
 *FvwmPager: MiniIcons
 
 # FvwmIconMan
@@ -712,12 +727,12 @@ DestroyModuleConfig FvwmPager:*
 # is used as the window list in the panel or taskbar.
 
 DestroyModuleConfig FvwmIconMan:*
-*FvwmIconMan: UseWinList true
-*FvwmIconMan: ButtonGeometry 118x20
+*FvwmIconMan: UseWinList True
+*FvwmIconMan: ButtonGeometry 120x20
 *FvwmIconMan: ManagerGeometry 1x1
 *FvwmIconMan: Background LightSteelBlue
 *FvwmIconMan: Foreground Black
-*FvwmIconMan: FocusColorset 11
+*FvwmIconMan: FocusColorset 0
 *FvwmIconMan: IconColorset 12
 *FvwmIconMan: FocusAndSelectColorset 14
 *FvwmIconMan: SelectColorset 12
