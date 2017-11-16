@@ -78,7 +78,7 @@ URxvt*secondaryScroll:      true
 !URxvt*colorUL:              green
 URxvt*background:           black
 URxvt*foreground:           white
-URxvt*cursorColor:          yellow
+URxvt*cursorColor:          red
 URxvt*tintColor:            #dfdfdf
 URxvt*scrollColor:          gray15
 !URxvt*scrollColor:          #828282

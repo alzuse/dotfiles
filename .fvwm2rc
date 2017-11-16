@@ -344,11 +344,12 @@ ColorSet 16 fg black,   bg Yellow, hi, sh, Plain, NoShape
 #######
 # 4: Menus
 ###########
+#MenuStyle * MWM
 MenuStyle * MenuColorset 5, ActiveColorset 6, GreyedColorset 7, TitleColorset 8
 MenuStyle * Hilight3DOff, HilightBack, HilightTitleBack, SeparatorsLong
 MenuStyle * TrianglesSolid, TrianglesUseFore
 MenuStyle * ItemFormat "%|%3.1i%5.3l%5.3>%|"
-MenuStyle * Font "xft:Sans:Bold:size=8:antialias=True"
+MenuStyle * Font "xft:Sans:size=9:antialias=True"
 
 # Root Menu
 #
@@ -359,16 +360,15 @@ AddToMenu   MenuFvwmRoot "Fvwm" Title
 + "&Programs%icons/programs.png%" Popup MenuPrograms
 + "XDG &Menu%icons/apps.png%"     Popup XDGMenu
 + "&XTerm%icons/terminal.png%"    Exec exec $[infostore.terminal]
-+ "Run..." Module FvwmForm FvwmFormRun
++ "&Run..."                       Module FvwmForm FvwmFormRun
 + "" Nop
-#+ "Fvwm&Console%icons/terminal.png%" Module FvwmConsole -terminal $[infostore.terminal]
++ "Remote &Logins"                Module FvwmForm FvwmFormRlogin
++ "" Nop
 + "M&an Pages%icons/help.png%"       Popup MenuFvwmManPages
-+ "&Utilities"                       Popup "Utilities"
-#+ "Copy Config%icons/conf.png%"      FvwmScript FvwmScript-ConfirmCopyConfig
++ "&Utilities"                       Popup Utilities
 + "" Nop
 + "Re&fresh%icons/refresh.png%"      Refresh
-+ "&Restart%icons/restart.png%"      Restart
-+ "&Quit%icons/quit.png%"            Module FvwmScript FvwmScript-ConfirmQuit
++ "&Quit...%icons/quit.png%"         Popup WMActions
 
 # Generate XDGMenu
 PipeRead "fvwm-menu-desktop -e"
@@ -394,6 +394,12 @@ Test (x xmag) + "xmag" Exec exec xmag
 Test (x import)+ "capture" Exec exec import ~/tmp/import_shot/`date +w_%Y%m%d_%T`.png
 +   "FvwmConsole"  Module FvwmConsole -terminal xterm -geometry 75x15-0-0 \
                               -bg gold -fg midnightblue
+
+DestroyMenu WMActions
+AddToMenu WMActions "WMActions" Title
++ "&Restart Fvwm%icons/restart.png%"      Restart
++ "" Nop
++ "&Quit%icons/quit.png%"            Module FvwmScript FvwmScript-ConfirmQuit
 
 # Window Operations Menus
 DestroyMenu MenuWindowOps
@@ -658,9 +664,9 @@ DestroyModuleConfig RightPanel:*
 Test (x stalonetray) *RightPanel: (120x20, Swallow(NoClose,UseOld) \
     stalonetray 'Exec exec stalonetray --config \
     "$[FVWM_DATADIR]/default-config/.stalonetrayrc"', Frame 0)
-Test (x stalonetray) PipeRead 'echo "*RightPanel: (120x$(($[vp.height]-260)), \
+Test (x stalonetray) PipeRead 'echo "*RightPanel: (120x$(($[vp.height]-280)), \
     Top, Swallow FvwmIconMan \'Module FvwmIconMan\', Frame 1)"'
-Test (!x stalonetray) PipeRead 'echo "*RightPanel: (120x$(($[vp.height]-240)),\
+Test (!x stalonetray) PipeRead 'echo "*RightPanel: (120x$(($[vp.height]-260)),\
     Top, Swallow FvwmIconMan \'Module FvwmIconMan\', Frame 1, Padding 1 0)"'
 *RightPanel: (120x80, Swallow FvwmPager "Module FvwmPager *", Frame 0)
 # +80
@@ -761,11 +767,43 @@ DestroyModuleConfig FvwmFormRun*
 *FvwmFormRun: Line left
 *FvwmFormRun: Text "  "
 *FvwmFormRun: Line expand
-*FvwmFormRun: Text ""
 *FvwmFormRun: Button quit "Run" ^M
 *FvwmFormRun: Command Exec exec $(CMD) &
-*FvwmFormRun: Text ""
-*FvwmFormRun: Text ""
 *FvwmFormRun: Button quit "Quit"
 *FvwmFormRun: Command Nop
 
+
+DestroyModuleConfig  FvwmFormRlogin: *
+*FvwmFormRlogin: Title "Remote Login..."
+*FvwmFormRlogin: Colorset 10
+*FvwmFormRlogin: ItemColorset 11
+*FvwmFormRlogin: WarpPointer
+*FvwmFormRlogin: Line         center
+*FvwmFormRlogin: Text         "Login to Remote Host"
+*FvwmFormRlogin: Line         left
+*FvwmFormRlogin: Text         "Host: "
+*FvwmFormRlogin: Input        HostName        30      "alinux20"
+*FvwmFormRlogin: Line         left
+*FvwmFormRlogin: Selection    UserSel single
+*FvwmFormRlogin: Choice       Default Default on      "same user"
+*FvwmFormRlogin: Choice       Custom  Custom  off     "user:"
+*FvwmFormRlogin: Input        UserName        15      ""
+*FvwmFormRlogin: Line         expand
+*FvwmFormRlogin: Button       quit    "Login"         ^M
+#*FvwmFormRlogin: Command      Exec exec ssh -X $(Custom?-l $(UserName)) $(HostName) xterm -T xterm@$(HostName) -display $HOSTDISPLAY &
+*FvwmFormRlogin: Command      Exec exec ssh -X $(Custom?-l $(UserName)) $(HostName) gnome-terminal &
+# Before saving the data, remove any previously saved data:
+*FvwmFormRlogin: Command DestroyModuleConfig FvwmFormRloginDefault: *
+# The "Login" button causes a login and a saving of the current data:
+*FvwmFormRlogin: Command !(                                      /bin/echo \
+  "# This file last created by FvwmFormRlogin on: `/bin/date`."; /bin/echo \
+  '*FvwmFormRloginDefault: HostName $(HostName)'               ; /bin/echo \
+  '*FvwmFormRloginDefault: UserName $(UserName)'               ; /bin/echo \
+  '*FvwmFormRloginDefault: Default $(Default?on)'              ; /bin/echo \
+  '*FvwmFormRloginDefault: Custom $(Custom?on)' \
+) > ${FVWM_USERDIR}/.FvwmFormRlogin
+*FvwmFormRlogin: Button       restart "Reset"
+*FvwmFormRlogin: Button       quit    "Cancel"        ^[
+*FvwmFormRlogin: Command      Nop
+# Tell FvwmForm to read vars from the .FvwmForm-RloginDefault file:
+*FvwmFormRlogin: UseData .FvwmFormRlogin *FvwmFormRloginDefault
