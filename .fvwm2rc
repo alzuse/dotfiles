@@ -148,10 +148,6 @@ AddToFunc   ChangeDesk
 + I SendToModule FvwmButtons ChangeButton desk1 Colorset 10
 + I SendToModule FvwmButtons ChangeButton desk2 Colorset 10
 + I SendToModule FvwmButtons ChangeButton desk3 Colorset 10
-+ I SendToModule FvwmButtons ChangeButton desk4 Colorset 10
-+ I SendToModule FvwmButtons ChangeButton desk5 Colorset 10
-+ I SendToModule FvwmButtons ChangeButton desk6 Colorset 10
-+ I SendToModule FvwmButtons ChangeButton desk7 Colorset 10
 + I SendToModule FvwmButtons ChangeButton desk$0 Colorset 11
 
 # Function: ShowDesktop
@@ -229,10 +225,6 @@ DesktopName 0 Main
 DesktopName 1 Desk1
 DesktopName 2 Desk2
 DesktopName 3 Desk3
-DesktopName 4 Desk4
-DesktopName 5 Desk5
-DesktopName 6 Desk6
-DesktopName 7 Desk7
 DesktopSize 2x2
 
 # EdgeScroll will move the view port between the Pages when the mouse
@@ -472,10 +464,6 @@ AddToMenu   MenuSendToDesk
 + "Desk 1"  MoveToDesk 0 1
 + "Desk 2"  MoveToDesk 0 2
 + "Desk 3"  MoveToDesk 0 3
-+ "Desk 4"  MoveToDesk 0 4
-+ "Desk 5"  MoveToDesk 0 5
-+ "Desk 6"  MoveToDesk 0 6
-+ "Desk 7"  MoveToDesk 0 7
 
 DestroyMenu MenuSendToPage
 AddToMenu   MenuSendToPage
@@ -580,11 +568,14 @@ Mouse 1 4 A Iconify
 Mouse 1  T    A RaiseMoveX Move Maximize
 Mouse 1  F    A RaiseMove Resize
 Mouse 1  S    A Resize
+
 Mouse 4  T    A WindowShade True
 Mouse 5  T    A WindowShade False
+
 Mouse 1  R    A Menu MenuFvwmRoot
 Mouse 2  R    A Menu MenuWindowOpsLong
 Mouse 3  R    A WindowList
+
 Mouse 1  I    A RaiseMoveX Move "Iconify off"
 Mouse 3  T    A Menu MenuWindowOps
 Mouse 3  I    A Menu MenuIconOps
@@ -617,11 +608,6 @@ DestroyModuleConfig FvwmBacker*
 *FvwmBacker: Command (Desk 1, Page * *) Exec exec xsetroot -mod 2 3 -fg \#213241 -bg \#001111
 *FvwmBacker: Command (Desk 2, Page * *) Exec exec xsetroot -mod 4 4 -fg \#222222 -bg black
 *FvwmBacker: Command (Desk 3, Page * *) -solid DarkSlateGray
-*FvwmBacker: Command (Desk 4, Page * *) -solid SteelBlue
-*FvwmBacker: Command (Desk 4, Page * *) -solid DarkSlateBlue
-*FvwmBacker: Command (Desk 5, Page * *) -solid gray24
-*FvwmBacker: Command (Desk 6, Page * *) -solid SeaGreen4
-*FvwmBacker: Command (Desk 7, Page * *) -solid SteelBlue
 
 # FvwmIdent
 #
@@ -665,45 +651,39 @@ DestroyModuleConfig RightPanel:*
 *RightPanel: Columns 120
 *RightPanel: Frame 0
 *RightPanel: Font "xft:Sans:Bold:size=10:antialias=True"
-#*RightPanel: (120x45, Icon "fvwm-logo-small.png", Frame 0)
-*RightPanel: (120x5, Frame 0)
-# +5
-*RightPanel: (2x20, Frame 0)
-*RightPanel: (29x20, Id desk0, Title "0", Action (Mouse 1) GotoDesk 0 0, Colorset 11, ActiveColorset 12, Frame 0)
-*RightPanel: (29x20, Id desk1, Title "1", Action (Mouse 1) GotoDesk 0 1, ActiveColorset 12, Frame 0)
-*RightPanel: (29x20, Id desk2, Title "2", Action (Mouse 1) GotoDesk 0 2, ActiveColorset 12, Frame 0)
-*RightPanel: (29x20, Id desk3, Title "3", Action (Mouse 1) GotoDesk 0 3, ActiveColorset 12, Frame 0)
-*RightPanel: (2x20, Frame 0)
-# +20
-*RightPanel: (2x20, Frame 0)
-*RightPanel: (29x20, Id desk4, Title "4", Action (Mouse 1) GotoDesk 0 4, ActiveColorset 12, Frame 0)
-*RightPanel: (29x20, Id desk5, Title "5", Action (Mouse 1) GotoDesk 0 5, ActiveColorset 12, Frame 0)
-*RightPanel: (29x20, Id desk6, Title "6", Action (Mouse 1) GotoDesk 0 6, ActiveColorset 12, Frame 0)
-*RightPanel: (29x20, Id desk7, Title "7", Action (Mouse 1) GotoDesk 0 7, ActiveColorset 12, Frame 0)
-*RightPanel: (2x20, Frame 0)
-# +20
-*RightPanel: (2x80, Frame 0)
-*RightPanel: (116x80, Swallow FvwmPager 'Module FvwmPager *', Frame 0)
-*RightPanel: (2x80, Frame 0)
-# +80
-*RightPanel: (120x5, Frame 0)
-# +5
+*RightPanel: (120x100, Swallow FvwmPagerSubPanel "Module FvwmPager FvwmPagerSubPanel 0 3", Frame 0, Padding 1 1)
+# +100
+*RightPanel: (120x2, Frame 0)
+# +2
 Test (x stalonetray) *RightPanel: (120x20, Swallow(NoClose,UseOld) \
     stalonetray 'Exec exec stalonetray --config \
     "$[FVWM_DATADIR]/default-config/.stalonetrayrc"', Frame 0)
-Test (x stalonetray) PipeRead 'echo "*RightPanel: (120x$(($[vp.height]-200)), \
+Test (x stalonetray) PipeRead 'echo "*RightPanel: (120x$(($[vp.height]-260)), \
     Top, Swallow FvwmIconMan \'Module FvwmIconMan\', Frame 1)"'
-Test (!x stalonetray) PipeRead 'echo "*RightPanel: (120x$(($[vp.height]-180)),\
-    Top, Swallow FvwmIconMan \'Module FvwmIconMan\', Frame 1)"'
-*RightPanel: (80x45, Swallow DateTime 'Module FvwmScript FvwmScript-DateTime',\
+Test (!x stalonetray) PipeRead 'echo "*RightPanel: (120x$(($[vp.height]-240)),\
+    Top, Swallow FvwmIconMan \'Module FvwmIconMan\', Frame 1, Padding 1 0)"'
+*RightPanel: (120x80, Swallow FvwmPager "Module FvwmPager *", Frame 0)
+# +80
+*RightPanel: (100x45, Swallow DateTime 'Module FvwmScript FvwmScript-DateTime',\
     Frame 0, \
     Action(Mouse 3) `WindowList`, \
     Action(Mouse 1) `Menu MenuFvwmRoot rectangle 0x198-0-0 +0 +0`, \
     Action(Mouse 2) `Menu MenuWindowOps rectangle 1x198-0-0 +0 +0` )
-*RightPanel: (40x45, Frame 8, Action (Mouse 1) Function ShowDesktop)
+*RightPanel: (20x45, Frame 8, Action (Mouse 1) Function ShowDesktop)
 # +45
-*RightPanel: (120x5, Frame 0)
-# +5
+*RightPanel: (120x3, Frame 0)
+# +3
+
+DestroyModuleConfig FvwmPagerSubPanel: *
+*FvwmPagerSubPanel: Rows 2
+*FvwmPagerSubPanel: Columns 2
+*FvwmPagerSubPanel: Colorset * 15
+*FvwmPagerSubPanel: HilightColorset * 13
+*FvwmPagerSubPanel: BalloonColorset * 16
+*FvwmPagerSubPanel: WindowColorsets 10 11
+*FvwmPagerSubPanel: Font "xft:Sans:size=7:antialias=True"
+*FvwmPagerSubPanel: Balloons All
+*FvwmPagerSubPanel: BalloonFont "xft:Sans:Bold:size=8:antialias=True"
 
 # FvwmPager
 #
