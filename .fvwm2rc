@@ -534,6 +534,7 @@ AddToMenu   MenuFvwmManPages "Help" Title
 # Silent supresses any errors (such as keyboards with no Menu key).
 Silent Key F1 A M Menu MenuFvwmRoot
 Silent Key Menu A A Menu MenuFvwmRoot
+Silent Key Super_L A A Menu MenuFvwmRoot
 Silent Key Tab A M WindowList Root c c NoDeskSort, SelectOnRelease Meta_L
 
 Silent Key F2  A M   Module FvwmForm FvwmFormRun
@@ -545,11 +546,11 @@ Silent Key F4 A C GotoDesk 0 3
 Silent Key Super_R A A Exec exec $[infostore.terminal]
 
 Silent Key F9     A   A   PrevWindow
-Silent Key F9     A   M   GotoDesk -1 0 7
+Silent Key F9     A   M   GotoDesk -1 0 3
 Silent Key F9     A   C   GotoPageCCW
 
 Silent Key F10    A   A   NextWindow
-Silent Key F10    A   M   GotoDesk 1 0 7
+Silent Key F10    A   M   GotoDesk 1 0 3
 Silent Key F10    A   C   GotoPageCW
 
 
