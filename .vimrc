@@ -41,29 +41,16 @@
     let maplocalleader = '_'
 " }
 
-" Use bundles config {
-    " Setup Bundle Support {
+" Use plug.vim  {
         " The next three lines ensure that the ~/.vim/bundle/ system works
-        filetype off
-        set rtp+=~/.vim/bundle/Vundle.vim
-        call vundle#rc()
+        call plug#begin('~/.vim/bundle')
     " }
 
-    " Add an UnPlugin command {
-    function! UnPlugin(arg, ...)
-        let bundle = vundle#config#init_bundle(a:arg, a:000)
-        call filter(g:vundle#bundles, 'v:val["name_spec"] != "' . a:arg . '"')
-    endfunction
-
-    com! -nargs=+         UnPlugin
-    \ call UnPlugin(<args>)
-    " }
 " }
 
 " Plugins {
     " Deps {
-        Plugin 'VundleVim/Vundle.vim'
-        Plugin 'mileszs/ack.vim'
+        Plug 'mileszs/ack.vim'
         if executable('ag')
             let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
         elseif executable('ack-grep')
@@ -72,56 +59,51 @@
     " }
 
     " General {
-        Plugin 'scrooloose/nerdtree'
-        "" Plugin 'altercation/vim-colors-solarized'
-        Plugin 'yianwillis/vimcdoc'
-        Plugin 'ctrlpvim/ctrlp.vim'
-        Plugin 'tacahiroy/ctrlp-funky'
-        "" Plugin 'terryma/vim-multiple-cursors'
-        Plugin 'vim-scripts/sessionman.vim'
-        Plugin 'matchit.zip'
-        let g:my_use_powerline = 1
-        if (has("python") || has("python3")) && exists('g:my_use_powerline') && !exists('g:my_use_old_powerline')
-            Plugin 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
-        elseif exists('g:my_use_powerline') && exists('g:my_use_old_powerline')
-            Plugin 'Lokaltog/vim-powerline'
-        else
-            "" Plugin 'vim-airline/vim-airline'
-            "" Plugin 'vim-airline/vim-airline-themes'
+        Plug 'scrooloose/nerdtree'
+        "" Plug 'altercation/vim-colors-solarized'
+        Plug 'yianwillis/vimcdoc'
+        Plug 'ctrlpvim/ctrlp.vim'
+        Plug 'tacahiroy/ctrlp-funky'
+        "" Plug 'terryma/vim-multiple-cursors'
+        Plug 'vim-scripts/sessionman.vim'
+        Plug 'vim-scripts/matchit.zip'
+        if has("python") || has("python3")
+            Plug 'vim-airline/vim-airline'
+            Plug 'vim-airline/vim-airline-themes'
         endif
-        Plugin 'powerline/fonts'
-        Plugin 'bling/vim-bufferline'
-        Plugin 'easymotion/vim-easymotion'
-        Plugin 'jistr/vim-nerdtree-tabs'
-        Plugin 'flazz/vim-colorschemes'
-        Plugin 'mbbill/undotree'
-        "" Plugin 'nathanaelkane/vim-indent-guides'
-        Plugin 'mhinz/vim-signify'
-        "" Plugin 'osyo-manga/vim-over'
-        "" Plugin 'gcmt/wildfire.vim'
+        Plug 'bling/vim-bufferline'
+        Plug 'easymotion/vim-easymotion'
+        Plug 'jistr/vim-nerdtree-tabs'
+        Plug 'flazz/vim-colorschemes'
+        Plug 'mbbill/undotree'
+        "" Plug 'nathanaelkane/vim-indent-guides'
+        Plug 'mhinz/vim-signify'
+        "" Plug 'osyo-manga/vim-over'
+        "" Plug 'gcmt/wildfire.vim'
     " }
 
     " General Programming {
         " Pick one of the checksyntax, jslint, or syntastic
-        "" Plugin 'scrooloose/syntastic'
-        Plugin 'tpope/vim-fugitive'
-        Plugin 'scrooloose/nerdcommenter'
-        "" Plugin 'luochen1990/rainbow'
-        Plugin 'godlygeek/tabular'
+        "" Plug 'scrooloose/syntastic'
+        Plug 'tpope/vim-fugitive'
+        Plug 'scrooloose/nerdcommenter'
+        "" Plug 'luochen1990/rainbow'
+        Plug 'godlygeek/tabular'
         if executable('ctags')
-            Plugin 'majutsushi/tagbar'
+            Plug 'majutsushi/tagbar'
         endif
     " }
 
     " AutoComplete {
-        "" Plugin 'Valloric/YouCompleteMe'
+        "" Plug 'Valloric/YouCompleteMe'
     " }
 
     " Python {
         " Pick either python-mode or pyflakes & pydoc
-        Plugin 'klen/python-mode'
-        Plugin 'davidhalter/jedi-vim'
+        Plug 'python-mode/python-mode'
+        "" Plug 'davidhalter/jedi-vim'
     " }
+    call plug#end()
 " }
 "
 
@@ -485,13 +467,23 @@
         " Disable if python support not present
         if !has('python') && !has('python3')
             let g:pymode = 0
-        endif
-
-        if isdirectory(expand("~/.vim/bundle/python-mode"))
-            let g:pymode_lint_checkers = ['pyflakes']
-            let g:pymode_trim_whitespaces = 0
-            let g:pymode_options = 0
-            let g:pymode_rope = 0
+        else
+            if isdirectory(expand("~/.vim/bundle/python-mode"))
+                let g:pymode = 1
+                " let g:pymode_lint = 1
+                let g:pymode_lint_on_fly = 0
+                let g:pymode_lint_checkers = ['pep8']
+                let g:pymode_lint_cwindow = 1
+                let g:pymode_trim_whitespaces = 0
+                let g:pymode_options = 1
+                let g:pymode_folding = 0
+                let g:pymode_run = 1
+                let g:pymode_run_bind = '<leader>r'
+                let g:pymode_rope = 1
+                let g:pymode_rope_completion = 1
+                let g:pymode_rope_complete_on_dot = 1
+                let g:pymode_rope_show_doc_bind = '<C-c>d'
+            endif
         endif
     " }
 
@@ -602,7 +594,8 @@
 
         " See `:echo g:airline_theme_map` for some more choices
         " Default in terminal vim is 'dark'
-        if isdirectory(expand("~/.vim/bundle/vim-airline-themes/")) && 0 ""skip these themes
+        let g:airline#extensions#tabline#enabled = 1
+        if isdirectory(expand("~/.vim/bundle/vim-airline-themes/")) ""skip these themes
             if !exists('g:airline_theme')
                 let g:airline_theme = 'solarized'
             endif
