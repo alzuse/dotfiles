@@ -3,6 +3,7 @@
 " }
 " Environment {
     " Identify platform {
+        set nocompatible        " Must be first line
         silent function! OSX()
             return has('macunix')
         endfunction
@@ -15,7 +16,6 @@
     " }
 
     " Basics {
-        set nocompatible        " Must be first line
         if !WINDOWS()
             set shell=/bin/sh
         endif
@@ -74,7 +74,6 @@
         Plug 'bling/vim-bufferline'
         Plug 'easymotion/vim-easymotion'
         Plug 'jistr/vim-nerdtree-tabs'
-        Plug 'flazz/vim-colorschemes'
         Plug 'mbbill/undotree'
         "" Plug 'nathanaelkane/vim-indent-guides'
         Plug 'mhinz/vim-signify'
@@ -594,23 +593,31 @@
 
         " See `:echo g:airline_theme_map` for some more choices
         " Default in terminal vim is 'dark'
-        let g:airline#extensions#tabline#enabled = 1
-        if isdirectory(expand("~/.vim/bundle/vim-airline-themes/")) ""skip these themes
-            if !exists('g:airline_theme')
-                let g:airline_theme = 'solarized'
+        if isdirectory(expand("~/.vim/bundle/vim-airline/"))
+            if has('gui_running')
+                let g:airline#extensions#tabline#enabled = 0
+            else
+                let g:airline#extensions#tabline#enabled = 1
+                let g:airline#extensions#tabline#formatter = 'unique_tail'
             endif
-            if !exists('g:airline_powerline_fonts')
-                " Use the default set of separators with a few customizations
-                "" let g:airline_left_sep='›'  " Slightly fancier than '>'
-                "" let g:airline_right_sep='‹' " Slightly fancier than '<'
-                if has('gui_running')
-                    let g:airline_left_sep=''  " Slightly fancier than '>'
-                    let g:airline_right_sep='' " Slightly fancier than '<'
-                else
-                    let g:airline_left_sep='>'
-                    let g:airline_right_sep='<'
-                endif
 
+            if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
+                if !exists('g:airline_theme')
+                    let g:airline_theme = 'solarized'
+                endif
+                if !exists('g:airline_powerline_fonts')
+                    " Use the default set of separators with a few customizations
+                    "" let g:airline_left_sep='›'  " Slightly fancier than '>'
+                    "" let g:airline_right_sep='‹' " Slightly fancier than '<'
+                    if has('gui_running')
+                        let g:airline_left_sep=''  " Slightly fancier than '>'
+                        let g:airline_right_sep='' " Slightly fancier than '<'
+                    else
+                        let g:airline_left_sep='>'
+                        let g:airline_right_sep='<'
+                    endif
+
+                endif
             endif
         endif
     " }
