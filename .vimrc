@@ -60,7 +60,6 @@
 
     " General {
         Plug 'scrooloose/nerdtree'
-        "" Plug 'altercation/vim-colors-solarized'
         Plug 'yianwillis/vimcdoc'
         Plug 'ctrlpvim/ctrlp.vim'
         Plug 'tacahiroy/ctrlp-funky'
@@ -203,15 +202,6 @@
 " }
 
 " Vim UI {
-
-    if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim")) && 0
-        let g:solarized_termcolors=256
-        let g:solarized_termtrans=1
-        let g:solarized_contrast="normal"
-        let g:solarized_visibility="normal"
-        color solarized             " Load a colorscheme
-    endif
-
     "" set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
@@ -601,23 +591,54 @@
                 let g:airline#extensions#tabline#formatter = 'unique_tail'
             endif
 
-            if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
-                if !exists('g:airline_theme')
-                    let g:airline_theme = 'solarized'
-                endif
-                if !exists('g:airline_powerline_fonts')
-                    " Use the default set of separators with a few customizations
-                    "" let g:airline_left_sep='›'  " Slightly fancier than '>'
-                    "" let g:airline_right_sep='‹' " Slightly fancier than '<'
-                    if has('gui_running')
-                        let g:airline_left_sep=''  " Slightly fancier than '>'
-                        let g:airline_right_sep='' " Slightly fancier than '<'
-                    else
-                        let g:airline_left_sep='>'
-                        let g:airline_right_sep='<'
-                    endif
+            let g:airline_powerline_fonts = 1
 
+            if !exists('g:airline_powerline_fonts')
+                " Use the default set of separators with a few customizations
+                "" let g:airline_left_sep='›'      " Slightly fancier than '>'
+                "" let g:airline_right_sep='‹'     " Slightly fancier than '<'
+                "" if has('gui_running')
+                ""     let g:airline_left_sep=''  " Slightly fancier than '>'
+                ""     let g:airline_right_sep='' " Slightly fancier than '<'
+                "" else
+                ""     let g:airline_left_sep = '>'
+                ""     let g:airline_right_sep = '<'
+
+                if !exists('g:airline_symbols')
+                    let g:airline_symbols = {}
                 endif
+
+                " unicode symbols
+                let g:airline_left_sep=''
+                let g:airline_right_sep=''
+                let g:airline_symbols.linenr = '␊'
+                let g:airline_symbols.branch = ''
+                let g:airline_symbols.paste = 'ρ'
+                let g:airline_symbols.whitespace = 'Ξ'
+                "" let g:airline_left_sep = '»'
+                "" let g:airline_left_sep = '▶'
+                "" let g:airline_left_sep = '>'
+                "" let g:airline_right_sep = '«'
+                "" let g:airline_right_sep = '◀'
+                "" let g:airline_right_sep = '<'
+                "" let g:airline_symbols.linenr = '␤'
+                "" let g:airline_symbols.linenr = '¶'
+                "" let g:airline_symbols.branch = '⎇'
+                "" let g:airline_symbols.paste = 'Þ'
+                "" let g:airline_symbols.paste = '∥'
+
+            else
+                if LINUX() && has("gui_running")
+                    set guifont=Liberation\ Mono\ for\ Powerline\ 10
+                elseif OSX() && has("gui_running")
+                    set guifont=Liberation\ Mono\ for\ Powerline\ 10
+                elseif WINDOWS() && has("gui_running")
+                    set guifont=Liberation_Mono_for_Powerline:h10
+                endif
+            endif
+
+            if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
+                let g:airline_theme = 'light'
             endif
         endif
     " }
@@ -632,13 +653,6 @@
     if has('gui_running')
         "" set guioptions-=T           " Remove the toolbar
         set lines=40                " 40 lines of text instead of 24
-        if LINUX() && has("gui_running")
-            set guifont=Dejavu\ Sans\ Mono\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
-        elseif OSX() && has("gui_running")
-            set guifont=Andale\ Mono\ Regular:h12,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
-        elseif WINDOWS() && has("gui_running")
-            set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-        endif
     else
         if &term == 'xterm' || &term == 'screen'
             set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
@@ -690,7 +704,8 @@
             endif
         endfor
     endfunction
-    call InitializeDirectories()
+    " we don't need a centralized backup/undo dir...
+    "" call InitializeDirectories()
     " }
 
     " Initialize NERDTree as needed {
@@ -770,7 +785,6 @@
     endfunction
 
     map <leader>q :call LookupInSdcv()<CR>
-
 
 " }
 
