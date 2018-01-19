@@ -631,7 +631,7 @@
 
             else
                 if LINUX() && has("gui_running")
-                    set guifont=Dejavu\ Sans\ Mono\ 10
+                    set guifont=Dejavu\ Sans\ Mono\ for\ Powerline\ 10
                 elseif OSX() && has("gui_running")
                     set guifont=Liberation\ Mono\ for\ Powerline\ 10
                 elseif WINDOWS() && has("gui_running")
