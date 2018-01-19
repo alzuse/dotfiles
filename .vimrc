@@ -584,6 +584,7 @@
         " See `:echo g:airline_theme_map` for some more choices
         " Default in terminal vim is 'dark'
         if isdirectory(expand("~/.vim/bundle/vim-airline/"))
+            let g:airline_powerline_fonts = 1
             if has('gui_running')
                 let g:airline#extensions#tabline#enabled = 0
             else
@@ -591,7 +592,6 @@
                 let g:airline#extensions#tabline#formatter = 'unique_tail'
             endif
 
-            let g:airline_powerline_fonts = 1
 
             if !exists('g:airline_powerline_fonts')
                 " Use the default set of separators with a few customizations
@@ -615,6 +615,7 @@
                 let g:airline_symbols.branch = ''
                 let g:airline_symbols.paste = 'ρ'
                 let g:airline_symbols.whitespace = 'Ξ'
+                let g:airline_symbols.readonly = ''
                 "" let g:airline_left_sep = '»'
                 "" let g:airline_left_sep = '▶'
                 "" let g:airline_left_sep = '>'
@@ -626,10 +627,11 @@
                 "" let g:airline_symbols.branch = '⎇'
                 "" let g:airline_symbols.paste = 'Þ'
                 "" let g:airline_symbols.paste = '∥'
+                "" let g:airline_symbols.readonly = '⭤'
 
             else
                 if LINUX() && has("gui_running")
-                    set guifont=Liberation\ Mono\ for\ Powerline\ 10
+                    set guifont=Dejavu\ Sans\ Mono\ 10
                 elseif OSX() && has("gui_running")
                     set guifont=Liberation\ Mono\ for\ Powerline\ 10
                 elseif WINDOWS() && has("gui_running")
