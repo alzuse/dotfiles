@@ -631,16 +631,16 @@
 
             else
                 if LINUX() && has("gui_running")
-                    set guifont=Dejavu\ Sans\ Mono\ for\ Powerline\ 10
+                    set guifont=Dejavu\ Sans\ Mono\ for\ Powerline\ 12
                 elseif OSX() && has("gui_running")
-                    set guifont=Liberation\ Mono\ for\ Powerline\ 10
+                    set guifont=Source_Code_Pro_for_Powerline:h12
                 elseif WINDOWS() && has("gui_running")
-                    set guifont=Liberation_Mono_for_Powerline:h10
+                    set guifont=Liberation_Mono_for_Powerline:h12
                 endif
             endif
 
             if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
-                let g:airline_theme = 'light'
+                " let g:airline_theme = 'light'
             endif
         endif
     " }
