@@ -657,6 +657,7 @@
         set lines=40                " 40 lines of text instead of 24
     else
         if &term == 'xterm' || &term == 'screen'
+            "" let g:airline_powerline_fonts = 0
             set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
         endif
         "set term=builtin_ansi       " Make arrow and other keys work
