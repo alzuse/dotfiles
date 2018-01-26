@@ -84,6 +84,7 @@
         "" Plug 'scrooloose/syntastic'
         Plug 'tpope/vim-fugitive'
         Plug 'scrooloose/nerdcommenter'
+        Plug 'w0rp/ale'
         "" Plug 'luochen1990/rainbow'
     " }
 
@@ -93,7 +94,7 @@
 
     " Python {
         " Pick either python-mode or pyflakes & pydoc
-        Plug 'python-mode/python-mode'
+        " Plug 'python-mode/python-mode'
         "" Plug 'davidhalter/jedi-vim'
     " }
     call plug#end()
@@ -438,6 +439,7 @@
     " }
 
     " PyMode {
+        let g:pymode = 0   " pymode sucks
         " Disable if python support not present
         if !has('python') && !has('python3')
             let g:pymode = 0
