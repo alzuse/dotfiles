@@ -4,6 +4,7 @@
 " Environment {
     " Identify platform {
         set nocompatible        " Must be first line
+
         silent function! OSX()
             return has('macunix')
         endfunction
@@ -60,6 +61,7 @@
 
     " General {
         Plug 'scrooloose/nerdtree'
+        Plug 'jistr/vim-nerdtree-tabs'
         Plug 'yianwillis/vimcdoc'
         Plug 'ctrlpvim/ctrlp.vim'
         Plug 'tacahiroy/ctrlp-funky'
@@ -72,12 +74,9 @@
         endif
         Plug 'bling/vim-bufferline'
         Plug 'easymotion/vim-easymotion'
-        Plug 'jistr/vim-nerdtree-tabs'
         Plug 'mbbill/undotree'
-        "" Plug 'nathanaelkane/vim-indent-guides'
+        Plug 'nathanaelkane/vim-indent-guides'
         Plug 'mhinz/vim-signify'
-        "" Plug 'osyo-manga/vim-over'
-        "" Plug 'gcmt/wildfire.vim'
     " }
 
     " General Programming {
@@ -86,10 +85,6 @@
         Plug 'tpope/vim-fugitive'
         Plug 'scrooloose/nerdcommenter'
         "" Plug 'luochen1990/rainbow'
-        Plug 'godlygeek/tabular'
-        if executable('ctags')
-            Plug 'majutsushi/tagbar'
-        endif
     " }
 
     " AutoComplete {
@@ -174,8 +169,8 @@
     " http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
     " Restore cursor to file position in previous editing session
     " To disable this, add the following to your .vimrc.before.local file:
-    let g:my_no_restore_cursor = 0
-    if !exists('g:my_no_restore_cursor')
+    let g:my_restore_cursor = 1
+    if exists('g:my_no_restore_cursor')
         function! ResCur()
             if line("'\"") <= line("$")
                 silent! normal! g`"
@@ -190,7 +185,7 @@
     endif
 
     " Setting up the directories {
-    " backup is sick
+    " Persistent backups are sick
     "" set backup                  " Backups are nice ...
     "" if has('persistent_undo')
     ""     set undofile                " So is persistent undo ...
@@ -205,7 +200,7 @@
     "" set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
-    "" set cursorline                  " Highlight current line
+    set cursorline                  " Highlight current line
 
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
@@ -249,6 +244,7 @@
     set foldenable                  " Auto fold code
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+    set diffopt+=vertical
 " }
 
 " Formatting {
@@ -267,7 +263,7 @@
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
     let g:my_keep_trailing_whitespace = 0
-    autocmd FileType c,cpp,python,puppet,xml,yaml,perl,sql autocmd BufWritePre <buffer> if !exists('g:my_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
+    autocmd FileType c,cpp,python,pyrex,puppet,xml,yaml,perl,sql autocmd BufWritePre <buffer> if !exists('g:my_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd FileType puppet,xml,yaml,html setlocal expandtab shiftwidth=2 softtabstop=2
     " preceding line best in a plugin but here for now.
@@ -280,10 +276,6 @@
 
 " Key (re)Mappings {
 
-    " The default mappings for editing and applying the my configuration
-    " are <leader>ev and <leader>sv respectively.
-    let s:my_edit_config_mapping = '<leader>ev'
-    let s:my_apply_config_mapping = '<leader>sv'
 
     " Wrapped lines goes down/up to next row, rather than next line in file.
     " Silly when using macro, so these two mappings are disabled
@@ -305,8 +297,8 @@
             command! -bang Wa wa<bang>
             command! -bang WA wa<bang>
             command! -bang Q q<bang>
-            command! -bang QA qa<bang>
             command! -bang Qa qa<bang>
+            command! -bang QA qa<bang>
         endif
 
         cmap Tabe tabe
@@ -314,6 +306,8 @@
 
     " Yank from the cursor to the end of the line, to be consistent with C and D.
     nnoremap Y y$
+
+
 
     " Code folding options
     nmap <leader>f0 :set foldlevel=0<CR>
@@ -366,11 +360,7 @@
     map gf :tabedit <cfile><CR>
 
     " Adjust viewports to the same size
-    map <Leader>= <C-w>=
-
-    " Map <Leader>ff to display all lines with keyword under cursor
-    " and ask which one to jump to
-    nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+    map <leader>= <C-w>=
 
     " Easier horizontal scrolling
     map zl zL
@@ -386,6 +376,19 @@
     " Misc {
         if isdirectory(expand("~/.vim/bundle/matchit.zip"))
             let b:match_ignorecase = 1
+        endif
+
+        if isdirectory(expand("~/.vim/bundle/ack.vim"))
+            cnoreabbrev Ack Ack!
+            nnoremap <leader>a :Ack!<Space>
+        endif
+
+        if isdirectory(expand("~/.vim/bundle/vim-easymotion"))
+            map <leader><leader>j <Plug>(easymotion-j)
+            map <leader><leader>k <Plug>(easymotion-k)
+            map <leader><leader>h <Plug>(easymotion-linebackward)
+            map <leader><leader>l <Plug>(easymotion-lineforward)
+            map <leader><leader>. <Plug>(easymotion-repeat)
         endif
     " }
 
@@ -406,6 +409,9 @@
             nmap <leader>nt :NERDTreeFind<CR>
 
             let g:NERDShutUp=1
+
+            let g:NERDTreeDirArrowExpandable = '▸'
+            let g:NERDTreeDirArrowCollapsible = '▾'
             let NERDTreeShowBookmarks=1
             let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
             let NERDTreeChDirMode=0
@@ -414,27 +420,6 @@
             let NERDTreeShowHidden=1
             let NERDTreeKeepTreeInNewTab=1
             let g:nerdtree_tabs_open_on_gui_startup=0
-        endif
-    " }
-
-    " Tabularize {
-        if isdirectory(expand("~/.vim/bundle/tabular"))
-            nmap <Leader>a& :Tabularize /&<CR>
-            vmap <Leader>a& :Tabularize /&<CR>
-            nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
-            vmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
-            nmap <Leader>a=> :Tabularize /=><CR>
-            vmap <Leader>a=> :Tabularize /=><CR>
-            nmap <Leader>a: :Tabularize /:<CR>
-            vmap <Leader>a: :Tabularize /:<CR>
-            nmap <Leader>a:: :Tabularize /:\zs<CR>
-            vmap <Leader>a:: :Tabularize /:\zs<CR>
-            nmap <Leader>a, :Tabularize /,<CR>
-            vmap <Leader>a, :Tabularize /,<CR>
-            nmap <Leader>a,, :Tabularize /,\zs<CR>
-            vmap <Leader>a,, :Tabularize /,\zs<CR>
-            nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-            vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
         endif
     " }
 
@@ -479,11 +464,9 @@
     " ctrlp {
         if isdirectory(expand("~/.vim/bundle/ctrlp.vim/"))
             let g:ctrlp_working_path_mode = 'ra'
-            nnoremap <silent> <D-t> :CtrlP<CR>
-            nnoremap <silent> <D-r> :CtrlPMRU<CR>
             let g:ctrlp_custom_ignore = {
-                \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-                \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+                \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+                \ 'file': '\v\.(exe|so|dll|pyc)$' }
 
             if executable('ag')
                 let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
@@ -513,14 +496,8 @@
                 let g:ctrlp_extensions = ['funky']
 
                 "funky
-                nnoremap <Leader>fu :CtrlPFunky<Cr>
+                nnoremap <leader>fu :CtrlPFunky<Cr>
             endif
-        endif
-    "}
-
-    " TagBar {
-        if isdirectory(expand("~/.vim/bundle/tagbar/"))
-            nnoremap <silent> <leader>tt :TagbarToggle<CR>
         endif
     "}
 
@@ -558,7 +535,7 @@
 
     " UndoTree {
         if isdirectory(expand("~/.vim/bundle/undotree/"))
-            nnoremap <Leader>u :UndotreeToggle<CR>
+            nnoremap <leader>u :UndotreeToggle<CR>
             " If undotree is opened, it is likely one wants to interact with it.
             let g:undotree_SetFocusWhenToggle=1
         endif
@@ -566,16 +543,16 @@
 
     " indent_guides {
         if isdirectory(expand("~/.vim/bundle/vim-indent-guides/"))
-            let g:indent_guides_start_level = 2
-            let g:indent_guides_guide_size = 1
-            let g:indent_guides_enable_on_vim_startup = 1
+            let g:indent_guides_start_level = 1
+            let g:indent_guides_guide_size = 0
+            let g:indent_guides_enable_on_vim_startup = 0
         endif
     " }
 
     " vim-airline {
         " Set configuration options for the statusline plugin vim-airline.
         " Use the powerline theme and optionally enable powerline symbols.
-        " To use the symbols , , , , , , and .in the statusline
+        " To use the symbols , , , , , , ␊, Ξ, and .in the statusline
         " segments add the following:
         "   let g:airline_powerline_fonts=1
         " If the previous symbols do not render for you then install a
@@ -595,15 +572,6 @@
 
             if !exists('g:airline_powerline_fonts')
                 " Use the default set of separators with a few customizations
-                "" let g:airline_left_sep='›'      " Slightly fancier than '>'
-                "" let g:airline_right_sep='‹'     " Slightly fancier than '<'
-                "" if has('gui_running')
-                ""     let g:airline_left_sep=''  " Slightly fancier than '>'
-                ""     let g:airline_right_sep='' " Slightly fancier than '<'
-                "" else
-                ""     let g:airline_left_sep = '>'
-                ""     let g:airline_right_sep = '<'
-
                 if !exists('g:airline_symbols')
                     let g:airline_symbols = {}
                 endif
@@ -711,20 +679,6 @@
     "" call InitializeDirectories()
     " }
 
-    " Initialize NERDTree as needed {
-    function! NERDTreeInitAsNeeded()
-        redir => bufoutput
-        buffers!
-        redir END
-        let idx = stridx(bufoutput, "NERD_tree")
-        if idx > -1
-            NERDTreeMirror
-            NERDTreeFind
-            wincmd l
-        endif
-    endfunction
-    " }
-
     " Strip whitespace {
     function! StripTrailingWhitespace()
         " Preparation: save last search, and cursor position.
@@ -771,10 +725,6 @@
         call <SID>ExpandFilenameAndExecute("tabedit", "~/.vimrc")
         call <SID>ExpandFilenameAndExecute("vsplit", "~/.vimrc.bundles")
     endfunction
-
-    execute "noremap " . s:my_edit_config_mapping " :call <SID>EditmyConfig()<CR>"
-    execute "noremap " . s:my_apply_config_mapping . " :source ~/.vimrc<CR>"
-
 
     function! LookupInSdcv()
         let liscword = expand("<cword>")
