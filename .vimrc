@@ -45,8 +45,6 @@
 " Use plug.vim  {
         " The next three lines ensure that the ~/.vim/bundle/ system works
         call plug#begin('~/.vim/bundle')
-    " }
-
 " }
 
 " Plugins {
@@ -94,12 +92,11 @@
 
     " Python {
         " Pick either python-mode or pyflakes & pydoc
-        " Plug 'python-mode/python-mode'
-        "" Plug 'davidhalter/jedi-vim'
+        Plug 'ervandew/supertab'
+        Plug 'davidhalter/jedi-vim'
     " }
     call plug#end()
 " }
-"
 
 " General {
     ""set background=dark         " Assume a dark background
@@ -155,7 +152,7 @@
     "set autowrite                       " Automatically write a file when leaving a modified buffer
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
-    set virtualedit=onemore             " Allow for cursor beyond last character
+    " set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
     "" set spell                           " Spell checking on
     set hidden                          " Allow buffer switching without saving
@@ -201,7 +198,7 @@
     "" set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
-    set cursorline                  " Highlight current line
+    "set cursorline                  " Highlight current line
 
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
@@ -308,8 +305,6 @@
     " Yank from the cursor to the end of the line, to be consistent with C and D.
     nnoremap Y y$
 
-
-
     " Code folding options
     nmap <leader>f0 :set foldlevel=0<CR>
     nmap <leader>f1 :set foldlevel=1<CR>
@@ -405,8 +400,8 @@
 
     " NerdTree {
         if isdirectory(expand("~/.vim/bundle/nerdtree"))
-            map <C-l> <plug>NERDTreeTabsToggle<CR>
-            map <leader>ff :NERDTreeFind<CR>
+            map <C-l> <Plug>NERDTreeTabsToggle<CR>
+            map <leader>ff  :NERDTreeFind<CR>
             nmap <leader>nt :NERDTreeFind<CR>
 
             let g:NERDShutUp=1
@@ -433,18 +428,30 @@
         endif
     " }
 
-    " JSON {
-        nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
-        let g:vim_json_syntax_conceal = 0
+    " Ale {
+        if isdirectory(expand('~/.vim/bundle/ale'))
+            let g:ale_sign_error = '>>'
+            let g:ale_sign_warning = '--'
+            let g:airline#extensions#ale#enabled = 1
+        endif
+    " }
+
+    " Jedi {
+        let g:jedi#goto_command = "<leader>jd"
+        let g:jedi#goto_assignments_command = "<leader>jg"
+        let g:jedi#goto_definitions_command = "<leader>jd"
+        let g:jedi#documentation_command = "K"
+        let g:jedi#usages_command = "<leader>jn"
+        let g:jedi#completions_command = "<Tab>"
+        let g:jedi#rename_command = "<leader>jr"
     " }
 
     " PyMode {
-        let g:pymode = 0   " pymode sucks
         " Disable if python support not present
         if !has('python') && !has('python3')
             let g:pymode = 0
         else
-            if isdirectory(expand("~/.vim/bundle/python-mode"))
+            if isdirectory(expand('~/.vim/bundle/python-mode')) && 0
                 let g:pymode = 1
                 " let g:pymode_lint = 1
                 let g:pymode_lint_on_fly = 0
@@ -570,7 +577,6 @@
                 let g:airline#extensions#tabline#enabled = 1
                 let g:airline#extensions#tabline#formatter = 'unique_tail'
             endif
-
 
             if !exists('g:airline_powerline_fonts')
                 " Use the default set of separators with a few customizations
