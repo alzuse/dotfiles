@@ -38,3 +38,4 @@ alias tl='tmux ls'
 alias ta='tmux attach -t'
 alias tca='tmux -c \!:1 attach -t \!:2'
 
+alias python='python3'

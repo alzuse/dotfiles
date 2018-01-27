@@ -85,11 +85,12 @@
         Plug 'nathanaelkane/vim-indent-guides'
         Plug 'scrooloose/nerdcommenter'
         Plug 'chrisbra/vim-diff-enhanced'
+        Plug 'majutsushi/tagbar'
         "" Plug 'luochen1990/rainbow'
     " }
 
     " AutoComplete {
-        "Plug 'Valloric/YouCompleteMe'
+        "" Plug 'Valloric/YouCompleteMe'
     " }
 
     " EDA {
@@ -99,7 +100,7 @@
     " }
     " Python {
         " Pick either python-mode or pyflakes & pydoc
-        Plug 'ervandew/supertab'
+        "" Plug 'ervandew/supertab'
         Plug 'davidhalter/jedi-vim'
         Plug 'anntzer/vim-cython'
     " }
@@ -119,7 +120,7 @@
             set background=dark
         endif
     endfunction
-    noremap <leader>bg :call ToggleBG()<CR>
+    noremap <leader>tb :call ToggleBG()<CR>
 
     " Allow to trigger helplang
     function! ToggleHelpLang()
@@ -133,7 +134,7 @@
             endif
         endif
     endfunction
-    noremap <leader>hl :call ToggleHelpLang()<CR>
+    noremap <leader>th :call ToggleHelpLang()<CR>
 
     " if !has('gui')
         "set term=$TERM          " Make arrow and other keys work
@@ -336,7 +337,7 @@
     endif
 
     " Find merge conflict markers
-    map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+    map <leader>cf /\v^[<\|=>]{7}( .*\|$)<CR>
 
     " Shortcuts
     " Change Working Directory to that of the current file
@@ -357,10 +358,9 @@
     " Some helpers to edit mode
     " http://vimcasts.org/e/14
     cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
-    map <leader>ew :e %%
+    map <leader>ee :tabe %%
     map <leader>es :sp %%
     map <leader>ev :vsp %%
-    map <leader>te :tabe %%
     map gf :tabedit <cfile><CR>
 
     " Adjust viewports to the same size
@@ -471,13 +471,19 @@
         endif
     " }
 
+    " Tagbar {
+        if isdirectory(expand('~/.vim/bundle/tagbar'))
+            nmap <leader>tt :TagbarToggle<CR>
+        endif
+
+    " }
     " Jedi {
         let g:jedi#goto_command = "<leader>jd"
         let g:jedi#goto_assignments_command = "<leader>jg"
         let g:jedi#goto_definitions_command = "<leader>jd"
         let g:jedi#documentation_command = "K"
         let g:jedi#usages_command = "<leader>jn"
-        "let g:jedi#completions_command = "<Tab>"
+        let g:jedi#completions_command = "<C-N>"
         let g:jedi#rename_command = "<leader>jr"
     " }
 
@@ -579,7 +585,7 @@
 
     " UndoTree {
         if isdirectory(expand("~/.vim/bundle/undotree/"))
-            nnoremap <leader>u :UndotreeToggle<CR>
+            nnoremap <leader>ut :UndotreeToggle<CR>
             " If undotree is opened, it is likely one wants to interact with it.
             let g:undotree_SetFocusWhenToggle=1
         endif
