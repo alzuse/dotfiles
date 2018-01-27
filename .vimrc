@@ -74,21 +74,22 @@
         Plug 'bling/vim-bufferline'
         Plug 'easymotion/vim-easymotion'
         Plug 'mbbill/undotree'
-        Plug 'nathanaelkane/vim-indent-guides'
         Plug 'mhinz/vim-signify'
     " }
 
     " General Programming {
         " Pick one of the checksyntax, jslint, or syntastic
         "" Plug 'scrooloose/syntastic'
-        Plug 'tpope/vim-fugitive'
-        Plug 'scrooloose/nerdcommenter'
         Plug 'w0rp/ale'
+        Plug 'tpope/vim-fugitive'
+        Plug 'nathanaelkane/vim-indent-guides'
+        Plug 'scrooloose/nerdcommenter'
+        Plug 'chrisbra/vim-diff-enhanced'
         "" Plug 'luochen1990/rainbow'
     " }
 
     " AutoComplete {
-        "" Plug 'Valloric/YouCompleteMe'
+        "Plug 'Valloric/YouCompleteMe'
     " }
 
     " EDA {
@@ -100,6 +101,7 @@
         " Pick either python-mode or pyflakes & pydoc
         Plug 'ervandew/supertab'
         Plug 'davidhalter/jedi-vim'
+        Plug 'anntzer/vim-cython'
     " }
     call plug#end()
 " }
@@ -158,7 +160,7 @@
     "set autowrite                       " Automatically write a file when leaving a modified buffer
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
-    " set virtualedit=onemore             " Allow for cursor beyond last character
+    set virtualedit=onemore,block            " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
     "" set spell                           " Spell checking on
     set hidden                          " Allow buffer switching without saving
@@ -406,9 +408,8 @@
 
     " NerdTree {
         if isdirectory(expand("~/.vim/bundle/nerdtree"))
-            map <C-l> <Plug>NERDTreeTabsToggle<CR>
-            map <leader>ff  :NERDTreeFind<CR>
-            nmap <leader>nt :NERDTreeFind<CR>
+            nmap <leader>fl :NERDTreeTabsToggle<CR>
+            nmap <leader>ff :NERDTreeFind<CR>
 
             let g:NERDShutUp=1
 
@@ -448,9 +449,25 @@
 
     " Ale {
         if isdirectory(expand('~/.vim/bundle/ale'))
-            let g:ale_sign_error = '>>'
-            let g:ale_sign_warning = '--'
+            let g:ale_sign_error = 'EE'
+            let g:ale_sign_warning = 'WW'
+            let g:ale_sign_column_always = 1
+            let g:ale_echo_msg_error_str = 'E'
+            let g:ale_echo_msg_warning_str = 'W'
+            let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+            let g:ale_linters = {
+            \   'python': ['flake8'],
+            \   'perl': ['perlcritic'],
+            \   'csh': ['shell'],
+            \   'text': [],
+            \   'help': [],
+            \}
             let g:airline#extensions#ale#enabled = 1
+        endif
+    " }
+    " EnhanceDiff {
+        if &diff && executable('git') && isdirectory(expand('~/.vim/vim-diff-enhanced'))
+            let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
         endif
     " }
 
@@ -460,7 +477,7 @@
         let g:jedi#goto_definitions_command = "<leader>jd"
         let g:jedi#documentation_command = "K"
         let g:jedi#usages_command = "<leader>jn"
-        let g:jedi#completions_command = "<Tab>"
+        "let g:jedi#completions_command = "<Tab>"
         let g:jedi#rename_command = "<leader>jr"
     " }
 
