@@ -60,6 +60,7 @@
     " General {
         Plug 'scrooloose/nerdtree'
         Plug 'jistr/vim-nerdtree-tabs'
+        Plug 'Xuyuanp/nerdtree-git-plugin'
         Plug 'yianwillis/vimcdoc'
         Plug 'ctrlpvim/ctrlp.vim'
         Plug 'tacahiroy/ctrlp-funky'
@@ -90,6 +91,11 @@
         "" Plug 'Valloric/YouCompleteMe'
     " }
 
+    " EDA {
+        Plug 'vhda/verilog_systemverilog.vim'
+        Plug 'tarikgraba/vim-liberty'
+        Plug 'tarikgraba/vim-lefdef'
+    " }
     " Python {
         " Pick either python-mode or pyflakes & pydoc
         Plug 'ervandew/supertab'
@@ -416,6 +422,18 @@
             let NERDTreeShowHidden=1
             let NERDTreeKeepTreeInNewTab=1
             let g:nerdtree_tabs_open_on_gui_startup=0
+            let g:NERDTreeIndicatorMapCustom = {
+                \ "Modified"  : "✹",
+                \ "Staged"    : "✚",
+                \ "Untracked" : "✭",
+                \ "Renamed"   : "➜",
+                \ "Unmerged"  : "═",
+                \ "Deleted"   : "✖",
+                \ "Dirty"     : "✗",
+                \ "Clean"     : "✔︎",
+                \ 'Ignored'   : '☒',
+                \ "Unknown"   : "?"
+                \ }
         endif
     " }
 
