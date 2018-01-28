@@ -90,7 +90,7 @@
     " }
 
     " AutoComplete {
-        "" Plug 'Valloric/YouCompleteMe'
+        Plug 'Valloric/YouCompleteMe'
     " }
 
     " EDA {
@@ -101,7 +101,7 @@
     " Python {
         " Pick either python-mode or pyflakes & pydoc
         "" Plug 'ervandew/supertab'
-        Plug 'davidhalter/jedi-vim'
+        " Plug 'davidhalter/jedi-vim'
         Plug 'anntzer/vim-cython'
     " }
     call plug#end()
@@ -478,13 +478,15 @@
 
     " }
     " Jedi {
-        let g:jedi#goto_command = "<leader>jd"
-        let g:jedi#goto_assignments_command = "<leader>jg"
-        let g:jedi#goto_definitions_command = "<leader>jd"
-        let g:jedi#documentation_command = "K"
-        let g:jedi#usages_command = "<leader>jn"
-        let g:jedi#completions_command = "<C-N>"
-        let g:jedi#rename_command = "<leader>jr"
+        if 0
+            let g:jedi#goto_command = "<leader>jd"
+            let g:jedi#goto_assignments_command = "<leader>jg"
+            let g:jedi#goto_definitions_command = "<leader>jd"
+            let g:jedi#documentation_command = "K"
+            let g:jedi#usages_command = "<leader>jn"
+            let g:jedi#completions_command = "<C-N>"
+            let g:jedi#rename_command = "<leader>jr"
+        endif
     " }
 
     " PyMode {
@@ -575,12 +577,27 @@
     "}
 
     " YouCompleteMe {
-            let g:acp_enableAtStartup = 0
 
-            " Disable the neosnippet preview candidate window
-            " When enabled, there can be too much visual noise
-            " especially when splits are used.
-            set completeopt-=preview
+        let g:ycm_add_preview_to_completeopt = 0
+        let g:ycm_show_diagnostics_ui = 0
+        let g:ycm_server_log_level = 'info'
+        let g:ycm_min_num_identifier_candidate_chars = 2
+        let g:ycm_collect_identifiers_from_comments_and_strings = 1
+        let g:ycm_complete_in_strings=1
+        let g:ycm_key_invoke_completion = '<c-z>'
+        set completeopt=menu,menuone
+
+        noremap <c-z> <NOP>
+
+        let g:ycm_semantic_triggers =  {
+                    \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+                    \ 'cs,lua,javascript': ['re!\w{2}'],
+                    \ }
+
+        " Disable the neosnippet preview candidate window
+        " When enabled, there can be too much visual noise
+        " especially when splits are used.
+        set completeopt-=preview
     " }
 
     " UndoTree {
