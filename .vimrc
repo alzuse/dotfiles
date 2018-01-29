@@ -98,6 +98,11 @@
         Plug 'tarikgraba/vim-liberty'
         Plug 'tarikgraba/vim-lefdef'
     " }
+    " c/cpp {
+        " All clang based completers suck
+        "" Plug 'justmao945/vim-clang'
+        "" Plug 'Rip-Rip/clang_complete'
+    " }
     " Python {
         " Pick either python-mode or pyflakes & pydoc
         "" Plug 'ervandew/supertab'
@@ -253,6 +258,8 @@
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
     set diffopt+=vertical
     set t_BE=
+    set completeopt-=preview
+    set completeopt=menu,menuone
 " }
 
 " Formatting {
@@ -478,6 +485,11 @@
         endif
 
     " }
+    " c/cpp {
+         if isdirectory(expand('~/.vim/bundle/clang_complete')) && 0
+             "let g:clang_library_path='/path/to/libclang.so'
+         endif
+    " }
     " Jedi {
         if 1
             let g:jedi#goto_command = "<leader>jd"
@@ -598,7 +610,6 @@
             " Disable the neosnippet preview candidate window
             " When enabled, there can be too much visual noise
             " especially when splits are used.
-            set completeopt-=preview
         endif
     " }
 
