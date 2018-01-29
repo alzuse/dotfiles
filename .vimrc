@@ -212,7 +212,7 @@
     "" set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
-    "set cursorline                  " Highlight current line
+    set cursorline                  " Highlight current line
 
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
@@ -407,6 +407,8 @@
     " Ctags {
         set tags=./tags;/,~/.vimtags
 
+        let g:tagbar_ctags_bin = '/usr/bin/ctags'
+
         " Make tags placed in .git/tags file available in all levels of a repository
         let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
         if gitroot != ''
@@ -492,6 +494,7 @@
     " }
     " Jedi {
         if 1
+            " show signature in commad-line
             let g:jedi#goto_command = "<leader>jd"
             let g:jedi#goto_assignments_command = "<leader>jg"
             let g:jedi#goto_definitions_command = "<leader>jd"
