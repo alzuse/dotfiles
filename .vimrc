@@ -210,7 +210,7 @@
 
 " Vim UI {
     "" set tabpagemax=15               " Only show 15 tabs
-    set showmode                    " Display the current mode
+    set noshowmode                    " Display the current mode
 
     set cursorline                  " Highlight current line
 
@@ -502,6 +502,7 @@
             let g:jedi#usages_command = "<leader>jn"
             let g:jedi#completions_command = "<C-N>"
             let g:jedi#rename_command = "<leader>jr"
+            let g:jedi#show_call_signatures = '2'
         endif
     " }
 

@@ -20,7 +20,7 @@ alias ls='ls -hF --color=tty'                 # classify files in colour
 alias dir='ls --color=auto --format=vertical'
 alias vdir='ls --color=auto --format=long'
 alias ll='ls -l'                              # long list
-alias lt 'ls -ltr'                            # long list with newest one at the bottom
+alias lt='ls -ltr'                            # long list with newest one at the bottom
 alias la='ls -A'                              # all but . and ..
 alias lla='ls -l -A'
 alias l='ls -CF'                              #
