@@ -106,7 +106,7 @@
     " Python {
         " Pick either python-mode or pyflakes & pydoc
         "" Plug 'ervandew/supertab'
-        Plug 'davidhalter/jedi-vim'
+        "" Plug 'davidhalter/jedi-vim'
         Plug 'anntzer/vim-cython'
     " }
     call plug#end()
@@ -493,7 +493,7 @@
          endif
     " }
     " Jedi {
-        if 1
+        if 0
             " show signature in commad-line
             let g:jedi#goto_command = "<leader>jd"
             let g:jedi#goto_assignments_command = "<leader>jg"
