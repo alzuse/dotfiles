@@ -80,7 +80,7 @@
     " General Programming {
         " Pick one of the checksyntax, jslint, or syntastic
         "" Plug 'scrooloose/syntastic'
-        Plug 'w0rp/ale'
+        "" Plug 'w0rp/ale'
         Plug 'tpope/vim-fugitive'
         Plug 'nathanaelkane/vim-indent-guides'
         Plug 'scrooloose/nerdcommenter'
