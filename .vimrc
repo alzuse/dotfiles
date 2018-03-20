@@ -80,7 +80,7 @@
     " General Programming {
         " Pick one of the checksyntax, jslint, or syntastic
         "" Plug 'scrooloose/syntastic'
-        "" Plug 'w0rp/ale'
+        Plug 'w0rp/ale'
         Plug 'tpope/vim-fugitive'
         Plug 'nathanaelkane/vim-indent-guides'
         Plug 'scrooloose/nerdcommenter'
@@ -471,6 +471,8 @@
             \   'csh': ['shell'],
             \   'text': [],
             \   'help': [],
+            \   'c': ['clang'],
+            \   'cpp': ['clang'],
             \}
             let g:airline#extensions#ale#enabled = 1
         endif
@@ -488,6 +490,7 @@
 
     " }
     " c/cpp {
+         let g:clang_use_library=0
          if isdirectory(expand('~/.vim/bundle/clang_complete')) && 0
              "let g:clang_library_path='/path/to/libclang.so'
          endif
