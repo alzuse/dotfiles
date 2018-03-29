@@ -108,6 +108,7 @@
         "" Plug 'ervandew/supertab'
         "" Plug 'davidhalter/jedi-vim'
         Plug 'anntzer/vim-cython'
+        Plug 'Vimjas/vim-python-pep8-indent'
     " }
     call plug#end()
 " }
