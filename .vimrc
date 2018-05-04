@@ -62,8 +62,8 @@
         Plug 'jistr/vim-nerdtree-tabs'
         Plug 'Xuyuanp/nerdtree-git-plugin'
         Plug 'yianwillis/vimcdoc'
-        Plug 'ctrlpvim/ctrlp.vim'
-        Plug 'tacahiroy/ctrlp-funky'
+        "" Plug 'ctrlpvim/ctrlp.vim'
+        "" Plug 'tacahiroy/ctrlp-funky'
         "" Plug 'terryma/vim-multiple-cursors'
         Plug 'vim-scripts/sessionman.vim'
         Plug 'vim-scripts/matchit.zip'
@@ -85,7 +85,8 @@
         Plug 'nathanaelkane/vim-indent-guides'
         Plug 'scrooloose/nerdcommenter'
         Plug 'chrisbra/vim-diff-enhanced'
-        Plug 'majutsushi/tagbar'
+        "" Plug 'majutsushi/tagbar'
+        Plug 'Yggdroot/LeaderF'
         "" Plug 'luochen1990/rainbow'
     " }
 
