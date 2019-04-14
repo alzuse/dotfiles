@@ -75,6 +75,7 @@
         Plug 'easymotion/vim-easymotion'
         Plug 'mbbill/undotree'
         Plug 'mhinz/vim-signify'
+        Plug 'junegunn/vim-easy-align'
     " }
 
     " General Programming {
@@ -448,6 +449,10 @@
                 \ "Unknown"   : "?"
                 \ }
         endif
+    " }
+    " {
+        xmap ga <Plug>(EasyAlign)
+        nmap ga <Plug><EasyAlign>
     " }
 
     " Session List {
