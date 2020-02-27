@@ -7,3 +7,5 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 For Spacemacs
 -------------
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+ln -s .spacemacs ~/.spacemacs
+# .spacemacs.d is deprecated
